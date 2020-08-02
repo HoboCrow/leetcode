@@ -107,10 +107,10 @@ class Tests(unittest.TestCase):
                "contains", "add", "add", "add", "add", "add", "add", "contains", "add", "remove", "add", "remove", "add", "add", "remove", "add", "contains", "add", "remove", "remove", "add", "add", "remove", "add", "remove", "contains", "add", "remove", "add", "add", "contains", "remove", "contains", "add", "contains", "contains", "add", "add", "add", "add", "remove", "add", "add", "contains", "contains", "add", "add", "add", "remove", "remove"]
         ins = [[], [95], [17], [95], [26], [70], [43], [33], [75], [86], [29], [39], [74], [56], [99], [4], [57], [81], [79], [26], [82], [13], [59], [69], [98], [45], [53], [84], [77], [89], [70], [51], [96], [6], [46], [86], [96], [87], [37], [96], [95], [58], [46], [41], [4], [80], [50], [89], [17], [4], [
             14], [69], [93], [3], [59], [63], [26], [5], [5], [44], [25], [17], [46], [69], [82], [28], [72], [6], [43], [11], [85], [61], [85], [62], [58], [98], [70], [13], [48], [91], [96], [87], [30], [91], [84], [59], [92], [97], [61], [91], [78], [16], [36], [85], [32], [93], [54], [89], [74], [79], [54]]
-        outs = [None, None, False, None, True, None, None, True, None, None, None, None, None, None, True, None, None, None, True, None, False, True, None, None, None, None, None, None, None, True, None, None, True, None, None, None, None, None, True, None, True, None, None, None, None, None, None, False, None, None,
-                False, None, None, False, None, None, None, None, True, None, True, True, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, True, None, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None]
+        outs = [None, None, None, True, False, None, False, None, None, None, None, False, None, None, False, None, None, None, None, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None, True, None, None, True, None, None, None, None, None, None, None, None, True, None,
+                None, True, None, None, None, None, None, None, True, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None, False, None, None, None, None, True, None, True, None, True, False, None, None, None, None, None, None, None, False, True, None, None, None, None, None]
         results, notes = self.leetcode_format(MyHashSet(), ops, ins, outs)
-        # print(notes)
+        print(notes)
         self.assertEqual(results, outs)
 
 
