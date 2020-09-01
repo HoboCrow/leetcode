@@ -8,10 +8,12 @@ class MyHashSet:
         Initialize your data structure here.
         """
         self.table = [None for i in range(10)]
+        self.load = 0
 
     def rebuild(self):
         # print("rebuild")
         old_table = self.table
+        self.load = 0
         self.table = [None for i in range(len(old_table)*2)]
         for key in old_table:
             if key is not None:
@@ -28,24 +30,29 @@ class MyHashSet:
             self.add(key)
         else:
             self.table[h] = key
+            self.load += 1
 
     def remove(self, key: int) -> None:
         h = self.hash(key)
         if self.table[h] == key:
             self.table[h] = None
+            self.load -= 1
 
     def contains(self, key: int) -> bool:
         """
         Returns True if this set contains the specified element
         """
-        return self.table[self.hash(key)] is not None
+        return self.table[self.hash(key)] == key
 
+    def get_load(self):
+        return (self.load/len(self.table), self.load, len(self.table))
 
 # Your MyHashSet object will be instantiated and called as such:
 # obj = MyHashSet()
 # obj.add(key)
 # obj.remove(key)
 # param_3 = obj.contains(key)
+
 
 class Tests(unittest.TestCase):
     def test_add(self):
@@ -98,8 +105,9 @@ class Tests(unittest.TestCase):
             75], [10], [55], [92], [71], [2], [20], [7], [55], [88], [39], [97], [44], [1], [51], [89], [37], [19], [3], [13], [11], [68], [18], [17], [41], [87], [48], [43], [68], [80], [35], [2], [17], [71], [90], [83], [42], [88], [16], [37], [33], [66], [59], [6], [79], [77], [14], [69], [36], [21], [40]]
         outs = [None, None, False, None, True, None, None, True, None, None, None, None, None, None, True, None, None, None, True, None, False, True, None, None, None, None, None, None, None, True, None, None, True, None, None, None, None, None, True, None, True, None, None, None, None, None, None, False, None, None,
                 False, None, None, False, None, None, None, None, True, None, True, True, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, True, None, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None]
-        results, notes = self.leetcode_format(MyHashSet(), ops, ins, outs)
-        # print(notes)
+        mhs = MyHashSet()
+        results, notes = self.leetcode_format(mhs, ops, ins, outs)
+        print(mhs.get_load())
         self.assertEqual(results, outs)
 
     def test_full3(self):
@@ -109,10 +117,15 @@ class Tests(unittest.TestCase):
             14], [69], [93], [3], [59], [63], [26], [5], [5], [44], [25], [17], [46], [69], [82], [28], [72], [6], [43], [11], [85], [61], [85], [62], [58], [98], [70], [13], [48], [91], [96], [87], [30], [91], [84], [59], [92], [97], [61], [91], [78], [16], [36], [85], [32], [93], [54], [89], [74], [79], [54]]
         outs = [None, None, None, True, False, None, False, None, None, None, None, False, None, None, False, None, None, None, None, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None, True, None, None, True, None, None, None, None, None, None, None, None, True, None,
                 None, True, None, None, None, None, None, None, True, None, None, None, None, None, None, None, None, False, None, None, None, None, None, None, None, None, False, None, None, None, None, True, None, True, None, True, False, None, None, None, None, None, None, None, False, True, None, None, None, None, None]
-        results, notes = self.leetcode_format(MyHashSet(), ops, ins, outs)
-        print(notes)
+        mhs = MyHashSet()
+        results, notes = self.leetcode_format(mhs, ops, ins, outs)
+        print(mhs.get_load())
         self.assertEqual(results, outs)
 
 
 if __name__ == "__main__":
-    unittest.main()
+    # unittest.main()
+    mhs = MyHashSet()
+    for i in range(1, 10000000):
+        mhs.add(i)
+    print(mhs.get_load())
